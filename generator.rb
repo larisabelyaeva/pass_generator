@@ -3,30 +3,26 @@
 
 class PasswordGenerator
 
-  public
-
-  # method of generating passwords
+    # method of generating passwords
   def create_passwords (number_of_passwords)
     read_files
     passwords = Array.new(number_of_passwords)
-    i = 0
-    passwords.each do |password|
-      password = @@prefixes[rand(@@prefixes.size- 1)]
-      password << @@syllables[rand(@@syllables.size - 1)]
-      password << @@postfixes[rand(@@postfixes.size - 1)]
-      passwords[i] = password
-      i += 1
+    passwords.each_with_index do |password, index|
+      password = @prefixes[rand(@prefixes.size- 1)]
+      password << @syllables[rand(@syllables.size - 1)]
+      password << @postfixes[rand(@postfixes.size - 1)]
+      passwords[index] = password
     end
     passwords
   end
 
-  private
+  protected
 
   # this method reads files that contain syllables
   def read_files
-    @@prefixes = IO.read('prefixes.txt').split(' ')
-    @@syllables = IO.read('syllables.txt').split(' ')
-    @@postfixes = IO.read('postfixes.txt').split(' ')
+    @prefixes = IO.read('prefixes.txt').split(' ')
+    @syllables = IO.read('syllables.txt').split(' ')
+    @postfixes = IO.read('postfixes.txt').split(' ')
   end
 end
 
